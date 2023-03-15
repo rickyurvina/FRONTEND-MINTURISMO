@@ -1,0 +1,11 @@
+nz-select {
+  width: 100%;
+}
+
+nz-tag{
+  text-overflow: clip;
+   text-overflow: ellipsis ellipsis;
+   white-space: nowrap; width:auto;
+   max-width: 100%;
+  overflow: hidden;
+}

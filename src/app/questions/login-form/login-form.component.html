@@ -1,0 +1,48 @@
+<div class="container-fluid h-100">
+  <div class="d-flex h-100 p-v-15 flex-column justify-content-between">
+      <div class="d-none d-md-flex p-h-40">
+          <img src="assets/images/logo/logo_gob1.png" width="350" height="150" alt="">
+      </div>
+      <div class="container">
+          <div class="row align-items-center">
+              <div class="col-md-5">
+                  <nz-card>
+                      <h2 class="m-t-20">Inicia Sesión</h2>
+                      <p class="m-b-30">Ingresa tus credenciales para tener acceso</p>
+                      <form nz-form [formGroup]="loginForm" nzLayout="vertical" class="login-form" (ngSubmit)="submitForm()">
+                          <nz-form-item>
+                              <nz-form-label nzRequired nzFor="userName">Correo</nz-form-label>
+                              <nz-form-control nzErrorTip="Porfavor ingresa tu correo!">
+                                  <nz-input-group [nzPrefix]="prefixUser">
+                                      <input type="text" nz-input formControlName="email" placeholder="Correo">
+                                  </nz-input-group>
+                              </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item class="relative">
+                              <nz-form-label nzRequired nzFor="password">Contraseña</nz-form-label>
+                              <nz-form-control nzErrorTip="Porfavor ingresa tu contraseña!">
+                                  <nz-input-group [nzPrefix]="prefixLock">
+                                      <input type="password" nz-input formControlName="password" placeholder="Contraseña">
+                                  </nz-input-group>
+                              </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item>
+                              <nz-form-control>
+                                  <div class="d-flex align-items-center justify-content-between">
+                                      <button nz-button class="login-form-button" [nzType]="'primary'" [disabled]="!loginForm.valid">Entrar</button>
+                                  </div>
+                              </nz-form-control>
+                          </nz-form-item>
+                      </form>
+                      <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
+                      <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
+                  </nz-card>
+              </div>
+              <div class="offset-md-1 col-md-6 d-none d-md-block">
+                  <img class="img-fluid" src="assets/images/logo/logo_gob1.png" alt="">
+              </div>
+          </div>
+      </div>
+      <app-footer></app-footer>
+  </div>
+</div>

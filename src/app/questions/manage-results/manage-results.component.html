@@ -1,0 +1,228 @@
+
+<nz-spin [nzSpinning]="isLoading">
+  <nz-tabset class="page-header-tab">
+    <nz-tab nzTitle="Resumen general">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-md-6">
+              <nz-card>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-b-0 text-muted">Total de acceso a la encuesta</p>
+                  </div>
+                  <span class="font-weight-semibold m-l-5">{{establishments}}</span>
+                </div>
+              </nz-card>
+            </div>
+            <div class="col-md-6">
+              <nz-card>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-b-0 text-muted"># Acceso hoy</p>
+                  </div>
+                  <span class="font-weight-semibold m-l-5">{{numberEstablishmentDay}}</span>
+                </div>
+              </nz-card>
+            </div>
+
+            <div class="col-md-6">
+              <nz-card>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-b-0 text-muted">Total de establecimientos que empezarón el formulario</p>
+                  </div>
+                  <span class="font-weight-semibold m-l-5">{{numberStartCompleteForm}}</span>
+                </div>
+                <div class="m-t-40">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <nz-badge nzStatus="default" [nzColor]="'#2db7f5'"></nz-badge>
+                      <span class="text-gray font-weight-semibold font-size-13">% Encuestas establecimientos que empezarón el formulario</span>
+                    </div>
+                    <nz-tag class="m-r-0 m-b-0" [nzColor]="'#2db7f5'">
+                      <span class="text-dark font-weight-semibold font-size-13">
+                        {{(numberStartCompleteForm/establishments*100).toFixed(0)}}%
+                      </span>
+                    </nz-tag>
+
+                  </div>
+                  <nz-progress [nzStrokeColor]="'#2db7f5'"
+                    [nzPercent]="(numberStartCompleteForm/establishments*100).toFixed(0)" nzSize="small"
+                    [nzShowInfo]="false">
+
+                  </nz-progress>
+                </div>
+              </nz-card>
+            </div>
+
+            <div class="col-md-6">
+              <nz-card>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-b-0 text-muted">Total de establecimientos que solo se registraron y no empezarón el formulario</p>
+                  </div>
+                  <span class="font-weight-semibold m-l-5">{{numberOnlyRegister}}</span>
+                </div>
+                <div class="m-t-40">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <nz-badge nzStatus="default" [nzColor]="'#53A1EF'"></nz-badge>
+                      <span class="text-gray font-weight-semibold font-size-13">
+                        % Total de establecimientos que solo se registraron y no empezarón el formulario
+                      </span>
+                    </div>
+                    <nz-tag class="m-r-0 m-b-0" [nzColor]="'#53A1EF'">
+                      <span class="text-dark font-weight-semibold font-size-13">
+                        {{(numberOnlyRegister/establishments*100).toFixed(0)}}%
+                      </span>
+                    </nz-tag>
+
+                  </div>
+                  <nz-progress [nzStrokeColor]="'#53A1EF'"
+                    [nzPercent]="(numberOnlyRegister/establishments*100).toFixed(0)" nzSize="small"
+                    [nzShowInfo]="false">
+
+                  </nz-progress>
+                </div>
+              </nz-card>
+            </div>
+
+            <div class="col-md-6">
+              <nz-card>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-b-0 text-muted"># Encuestas con 0% de progreso</p>
+                  </div>
+                  <span class="font-weight-semibold m-l-5">{{numberNoComplete}}</span>
+                </div>
+                <div class="m-t-40">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <nz-badge nzStatus="default" [nzColor]="'#EF5F53'"></nz-badge>
+                      <span class="text-gray font-weight-semibold font-size-13">% Encuestas con 0% de progreso</span>
+                    </div>
+                    <nz-tag class="m-r-0 m-b-0" [nzColor]="'#EF5F53'">
+                      <span class="text-dark font-weight-semibold font-size-13">
+                        {{(numberNoComplete/establishments*100).toFixed(0)}}%
+                      </span>
+                    </nz-tag>
+
+                  </div>
+                  <nz-progress [nzStrokeColor]="'#EF5F53'"
+                    [nzPercent]="(numberNoComplete/establishments*100).toFixed(0)" nzSize="small"
+                    [nzShowInfo]="false">
+
+                  </nz-progress>
+                </div>
+              </nz-card>
+            </div>
+
+            <div class="col-md-6">
+              <nz-card>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-b-0 text-muted"># Encuestas con progreso mayor al 0% y menor al 100%</p>
+                  </div>
+                  <span class="font-weight-semibold m-l-5">{{numberOneComplete}}</span>
+                </div>
+                <div class="m-t-40">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <nz-badge nzStatus="default" [nzColor]="'#ffd591'"></nz-badge>
+                      <span class="text-gray font-weight-semibold font-size-13">% Encuestas con progreso mayor al 0% y menor al 100%</span>
+                    </div>
+                    <nz-tag class="m-r-0 m-b-0" [nzColor]="'#ffd591'">
+                      <span class="text-dark font-weight-semibold font-size-13">
+                        {{(numberOneComplete/establishments*100).toFixed(0)}}%
+                      </span>
+                    </nz-tag>
+
+                  </div>
+                  <nz-progress [nzStrokeColor]="'#ffd591'"
+                    [nzPercent]="(numberOneComplete/establishments*100).toFixed(0)" nzSize="small"
+                    [nzShowInfo]="false">
+
+                  </nz-progress>
+                </div>
+              </nz-card>
+            </div>
+
+            <div class="col-md-6">
+              <nz-card>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="m-b-0 text-muted"># Encuestas con 100% de progreso (Completadas)</p>
+                  </div>
+                  <span class="font-weight-semibold m-l-5">{{numberAllComplete}}</span>
+
+                </div>
+
+                <div class="m-t-40">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <nz-badge nzStatus="default" [nzColor]="'#b7eb8f'"></nz-badge>
+                      <span class="text-gray font-weight-semibold font-size-13">% Encuestas con 100% de progreso (Completadas)</span>
+                    </div>
+                    <nz-tag class="m-r-0 m-b-0" [nzColor]="'#b7eb8f'">
+                      <span class="text-dark font-weight-semibold font-size-13">
+                        {{(numberAllComplete/establishments*100).toFixed(0)}}%
+                      </span>
+                    </nz-tag>
+
+                  </div>
+                  <nz-progress [nzStrokeColor]="'#b7eb8f'"
+                    [nzPercent]="(numberAllComplete/establishments*100).toFixed(0)" nzSize="small"
+                    [nzShowInfo]="false">
+
+                  </nz-progress>
+                </div>
+              </nz-card>
+            </div>
+
+            <div class="col-md-6">
+              <nz-card>
+
+                <div class="m-t-40">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <nz-badge nzStatus="default" [nzColor]="purple"></nz-badge>
+                      <span class="text-gray font-weight-semibold font-size-13">
+                        Tasa de compleción de los establecimientos que empezarón a llenar el formulario
+                      </span>
+                    </div>
+                    <span class="text-dark font-weight-semibold font-size-13">{{percentageComplete}}% </span>
+                  </div>
+                  <nz-progress [nzStrokeColor]="purple" [nzPercent]="percentageComplete" nzSize="small"
+                    [nzShowInfo]="false"></nz-progress>
+                </div>
+
+              </nz-card>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nz-card>
+            <div class="d-flex justify-content-between align-items-center">
+              <h5># Establecimientos por Subsector de actividad</h5>
+            </div>
+            <div class="m-t-50">
+              <div id="generalResults" style="width: 100%; height: 350px;"></div>
+            </div>
+          </nz-card>
+        </div>
+      </div>
+    </nz-tab>
+
+    <nz-tab nzTitle="Resumen por ubicación">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="m-t-50">
+            <div id="generalResultsLocation" style="width: 100%; height: 550px;"></div>
+          </div>
+        </div>
+      </div>
+    </nz-tab>
+
+  </nz-tabset>
+</nz-spin>

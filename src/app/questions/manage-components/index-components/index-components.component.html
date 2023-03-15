@@ -1,0 +1,41 @@
+<div>
+  <div nz-row nzJustify="end">
+    <div nz-col>
+      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="showModalCreate()">
+        <i nz-icon nzType="plus"></i> {{ "general.agregar" | translate }}
+      </button>
+    </div>
+  </div>
+  <div style="background: #ECECEC;padding:30px;">
+    <div nz-row>
+      <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="8" *ngFor="let component of components">
+        <nz-card nzTitle="{{component.code}}-{{component.name}}" [nzExtra]="extraTemplate">
+          <p>{{component.description}}</p>
+          <nz-divider [nzText]="'general.sub_tema'|translate"></nz-divider>
+          <nz-tag [nzColor]="'magenta'" *ngFor="let subTopic of component.sub_topics">
+            <span nzTooltipTitle="{{subTopic.name}}" nzTooltipPlacement="top" nz-tooltip>
+              {{subTopic.name}}
+            </span>
+           </nz-tag>
+          <nz-divider [nzText]="'general.Formularios'|translate"></nz-divider>
+          <nz-tag [nzColor]="'geekblue'" *ngFor="let form of component.forms">
+            <span nzTooltipTitle="{{form.name}}" nzTooltipPlacement="top" nz-tooltip>
+              {{form.name}}
+            </span>
+           </nz-tag>
+          <nz-divider></nz-divider>
+        </nz-card>
+        <ng-template #extraTemplate>
+          <a nz-button [nzSize]="size" nzType="link" (click)="showModalCreate(component.id)">
+            <i style="margin-right:8px;" nz-icon nzType="edit" nzTheme="outline">
+            </i>
+          </a>
+          <a nz-button [nzSize]="size" nzType="link" *ngIf="component.sub_topics.length <=0"
+            (click)="showConfirm(component.id)">
+            <i nz-icon nzType="delete" nzTheme="outline"></i>
+          </a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

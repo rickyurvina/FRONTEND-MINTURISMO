@@ -1,0 +1,210 @@
+.large ::ng-deep .ant-rate-star {
+  font-size: 36px;
+}
+
+.ant-progress {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+:host {
+  text-align: center;
+}
+
+
+nz-footer {
+  background: #ffffff;
+}
+
+nz-header {
+  background: #ffffff;
+  height: auto;
+}
+
+nz-footer {
+  line-height: 1.5;
+}
+
+nz-sider {
+  background: #3ba0e9;
+  color: #fff;
+  line-height: 120px;
+}
+
+nz-content {
+  color: #fff;
+  min-height: 120px;
+  line-height: 120px;
+}
+
+nz-layout {
+  margin-bottom: 3me;
+}
+
+nz-layout nz-layout,
+nz-layout:last-child {
+  margin: 2em;
+}
+
+#chart-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.nz-content-p {
+  padding-left: 6rem;
+  padding-right: 6rem;
+  height: auto;
+  overflow-x: auto;
+}
+
+.chart-form {
+  width: 100%;
+  padding: 0px;
+  height: 350px;
+}
+
+.components-responsive {
+
+  display: flex;
+  width: 100%;
+}
+
+.components-responsive2 {
+
+  display: none;
+}
+
+.select-subtopics {
+  width: 100%;
+}
+
+.long-text {
+  word-wrap: break-word;
+}
+
+.table-questions {
+  border-collapse: collapse;
+}
+
+.subtopic-chart-1 {
+  display: block;
+}
+
+.subtopic-chart-2 {
+  display: none;
+}
+
+.markdown.api-container table td:nth-child(3) {
+  width: 40%;
+  color: #191919;
+  font-size: 0.875rem;
+  word-break: break-all;
+}
+
+.markdown.api-container table td:nth-child(4) {
+  width: 35%;
+  color: #191919;
+  font-size: 0.875rem;
+  word-break: break-all;
+}
+
+.markdown.api-container table td:nth-child(2) {
+  width: 7%;
+}
+
+.markdown.api-container table td:nth-child(1) {
+  width: 15%;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .nz-content-p {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    overflow-x: auto;
+  }
+
+  .table-questions td,
+  .table-questions th {
+    display: block;
+  }
+
+  .chartForm {
+    margin-top: -50px;
+  }
+
+  .subtopic-chart-1 {
+    display: none;
+  }
+
+  .chart-form {
+    width: 100%;
+    padding: 0px;
+    margin-bottom: -75px;
+    /* margin-top: -7rem; */
+  }
+
+  .components-responsive {
+    display: none;
+  }
+
+  .components-responsive2 {
+    display: flex;
+  }
+
+  .select-subtopics {
+    width: 100%;
+  }
+
+  .subtopic-chart-2 {
+    display: block;
+  }
+
+  .ant-layout-header {
+    padding: 0;
+
+  }
+
+
+}
+
+
+/* Smartphones (landscape) ----------- */
+
+@media only screen and (min-width: 321px) and (orientation: landscape) and (max-width: 760px) {
+  .nz-content-p {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    overflow-x: auto;
+  }
+
+}
+
+
+/* Smartphones (portrait) ----------- */
+
+@media only screen and (max-width: 320px) {}
+
+
+/* iPads (portrait and landscape) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {}
+
+
+/* iPads (landscape) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {}
+
+
+/* iPads (portrait) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {}
+
+
+/* Desktops and laptops ----------- */
+
+@media only screen and (min-width: 1224px) {}

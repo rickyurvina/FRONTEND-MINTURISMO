@@ -1,0 +1,49 @@
+<nz-spin [nzSpinning]="isLoadingDownloadPdf || isLoadingDownloadExcel">
+  <div>
+    <div nz-row nzJustify="end">
+      <div nz-col>
+        <button nz-button nzType="primary" nzShape="round" (click)="downloadExcel()"
+          [nzLoading]="isLoadingDownloadExcel">
+          <span nz-icon nzType="file-excel" nzTheme="outline"></span> Descargar
+        </button>
+      </div>
+    </div>
+    <div style="background: #ECECEC;padding:30px;">
+      <nz-table #basicTable [nzData]="establishments" [nzPageSize]="50" [nzScroll]="{ x: '850px', y: '800px' }"
+      [nzLoading]="isLoadingTable">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Fecha de creación</th>
+            <th>Nombre</th>
+            <th>Porcentaje</th>
+            <th>Correo</th>
+            <th>Empresa</th>
+            <th>Tipo</th>
+            <th>Calificación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.code }}</td>
+            <td>{{ data.created_at | date:'dd/MM/yyyy hh:mm:ss a' }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.progress }}%</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.company ?? '' }}</td>
+            <td>{{ data.establishment_type ? data.establishment_type.name: '' }}</td>
+            <td>{{ data.results.length>0?data.results[0]['score']:'N/A' }}</td>
+            <td>
+              <a (click)="showEstablishment(data.id)" *ngIf="data.results.length>0" style="margin-right: 10px;"><span
+                  nz-icon nzType="eye" nzTheme="outline"></span></a>
+              <a (click)="downloadPdf(data.id)" *ngIf="data.results.length>0" style="margin-right: 10px;"><span nz-icon
+                  nzType="cloud-download" nzTheme="outline"></span></a>
+              <a (click)="deleteEstablishment(data.id)"><span nz-icon nzType="delete" nzTheme="outline"></span></a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</nz-spin>

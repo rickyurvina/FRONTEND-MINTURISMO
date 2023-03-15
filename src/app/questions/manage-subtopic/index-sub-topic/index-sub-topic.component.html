@@ -1,0 +1,43 @@
+<div>
+  <div nz-row nzJustify="end">
+    <div nz-col>
+      <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="showModalCreate()">
+        <i nz-icon nzType="plus"></i> {{ "general.agregar" | translate }}
+      </button>
+    </div>
+  </div>
+  <div style="background: #ECECEC;padding:30px;">
+    <div nz-row>
+      <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="8"  *ngFor="let subTopic of subTopics">
+        <nz-card nzTitle="{{subTopic.code}}-{{subTopic.name}}" [nzExtra]="extraTemplate">
+          <p>{{subTopic.description}}</p>
+          <nz-divider [nzText]="'general.Preguntas'|translate" *ngIf="subTopic.questions.lenght>0"></nz-divider>
+          <nz-tag [nzColor]="'magenta'" *ngFor="let question of subTopic.questions">
+            <span nzTooltipTitle="{{question.name}}" nzTooltipPlacement="top" nz-tooltip>
+              {{question.code}} - {{question.name}}
+            </span>
+           </nz-tag>
+          <nz-divider [nzText]="'general.componente'|translate"></nz-divider>
+          <div nz-row>
+            <div nz-col>
+              <nz-tag [nzColor]="'orange'">
+                <span nzTooltipTitle="{{subTopic.component.name}}" nzTooltipPlacement="top" nz-tooltip>
+                  {{subTopic.component.code}}-{{subTopic.component.name}}
+                </span>
+              </nz-tag>
+            </div>
+          </div>
+        </nz-card>
+        <ng-template #extraTemplate>
+          <a nz-button [nzSize]="size" nzType="link" (click)="showModalCreate(subTopic.id)">
+            <i style="margin-right:8px;" nz-icon nzType="edit" nzTheme="outline">
+            </i>
+          </a>
+          <a nz-button [nzSize]="size" nzType="link" (click)="showConfirm(subTopic.id)" *ngIf="subTopic.questions.length <=0">
+            <i nz-icon nzType="delete" nzTheme="outline"></i>
+          </a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

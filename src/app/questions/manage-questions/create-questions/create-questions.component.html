@@ -1,0 +1,202 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)"
+  style="width: 100% !important; max-width: 100% !important;">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>{{"general.codigo" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzValidatingTip]="'validaciones.validando' | translate" [nzErrorTip]="userErrorTpl">
+      <input nz-input formControlName="code" id="code" [placeholder]="'general.codigo' | translate" />
+      <ng-template #userErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.codigo_requerido" |
+          translate}}</ng-container>
+        <ng-container *ngIf="control.hasError('duplicated')">{{"validaciones.codigo_existente" |
+          translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>{{"general.nombre" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+      <textarea nz-input [placeholder]="'general.nombre'|translate" formControlName="name"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+      <ng-template #nameErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.nombre_requerido" |
+          translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>{{"general.tipo" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="typeErrorTpl">
+      <nz-select nzAllowClear formControlName="type" name="type" id="type" [nzPlaceHolder]="'general.escoge'|translate">
+        <nz-option *ngFor="let option of optionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      </nz-select>
+      <ng-template #typeErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.tipo_requerido" | translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Relacion establecimiento</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="establishmentTypesErrorTpl">
+      <nz-select nzMode="tags" formControlName="establishmentTypes" name="establishmentTypes" id="establishmentTypes"
+        [nzPlaceHolder]="'general.escoge'|translate">
+        <nz-option *ngFor="let option of establishmentTypes" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
+      </nz-select>
+      <ng-template #establishmentTypesErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.tipo_requerido" | translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">{{"general.dependiente" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="dependentErrorTpl">
+      <nz-select nzAllowClear formControlName="dependentQ" name="dependentQ" id="dependentQ"
+        [nzPlaceHolder]="'general.dependiente'|translate">
+        <nz-option nzValue="si" nzLabel="Si"></nz-option>
+        <nz-option nzValue="no" nzLabel="No"></nz-option>
+      </nz-select>
+      <ng-template #dependentErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.tipo_requerido" | translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="validateForm.value.dependentQ=='si'">
+    <nz-form-label [nzSpan]="4" nzRequired>Escoger preguntas</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="typeErrorTpl">
+      <nz-select nzMode="tags" formControlName="dependents" name="dependents" id="dependents"
+        nzPlaceHolder="Escoger preguntas">
+        <nz-option *ngFor="let question of questions" [nzValue]="question.id" [nzLabel]="question.code+' '+question.name"></nz-option>
+      </nz-select>
+      <ng-template #typeErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.tipo_requerido" | translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="validateForm.value.dependentQ=='si'">
+    <nz-form-label [nzSpan]="4" nzRequired>Respuesta esperada</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <nz-select nzAllowClear formControlName="answerRequired" name="answerRequired" id="answerRequired"
+        nzPlaceHolder="Respuesta esperada">
+        <nz-option nzValue="positive" nzLabel="Positiva"></nz-option>
+        <nz-option nzValue="negative" nzLabel="Negativa"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="validateForm.value.type=='relacionada'">
+    <nz-form-label [nzSpan]="4" nzRequired>{{"general.tipo_preguntas_hijas" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="childrenTypeErrorTpl">
+      <nz-select nzAllowClear formControlName="children_type" name="children_type" id="children_type"
+        [nzPlaceHolder]="'general.escoge'|translate">
+        <nz-option *ngFor="let option of optionList2" [nzValue]="option.value" nzLabel="{{option.label}}"></nz-option>
+      </nz-select>
+      <ng-template #childrenTypeErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.tipo_requerido" | translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">{{"general.descripcion" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <textarea nz-input [placeholder]="'general.descripcion'|translate" formControlName="description"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Importancia</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <textarea nz-input placeholder="Importancia" formControlName="importance"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Medios de Verificación</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <textarea nz-input placeholder="Medios de Verificación" formControlName="verificationMeans"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Tiene calificación</nz-form-label>
+    <nz-form-control nzHasFeedback>
+        <nz-switch [ngModel]="true" nzCheckedChildren="Si" nzUnCheckedChildren="No" formControlName="hasScore"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="validateForm.value.type=='relacionada'">
+    <nz-divider [nzText]="'general.crear_preguntas_relacionadas'|translate"></nz-divider>
+    <form nz-form [formGroup]="validateFormRelated" class="ant-advanced-search-form"
+      (ngSubmit)="submitFormRelated(validateFormRelated.value)">
+      <div nz-row>
+        <div nz-col>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8" nzRequired>{{"general.nombre" | translate}}</nz-form-label>
+            <nz-form-control  nzHasFeedback [nzErrorTip]="nameErrorTpl">
+              <input nz-input formControlName="name" [placeholder]="'general.nombre' | translate" />
+              <ng-template #nameErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">{{"validaciones.nombre_requerido" |
+                  translate}}</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item
+            *ngIf="validateForm.value.children_type==='multiple' ||  validateForm.value.children_type==='una_opcion'">
+            <nz-form-label [nzSpan]="8">{{"general.valor" | translate}}</nz-form-label>
+            <nz-form-control  nzHasFeedback [nzErrorTip]="valueErrorTpl">
+              <input nz-input type="number" formControlName="value" [placeholder]="'general.valor' | translate" />
+              <ng-template #valueErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">{{"validaciones.valor_requerido" |
+                  translate}}</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col class="search-area">
+          <button nz-button [nzType]="'primary'" [disabled]="!validateFormRelated.valid">+</button>
+          <button nz-button (click)="resetFormRelated()">{{"general.limpiar" | translate}}</button>
+        </div>
+      </div>
+    </form>
+  </nz-form-item>
+
+  <div *ngIf="questionsRelated.length>0">
+    <nz-divider [nzText]="'general.preguntas_relacionadas'|translate"></nz-divider>
+    <nz-table #basicTable [nzData]="questionsRelated">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of questionsRelated">
+          <td>{{ data.name }}</td>
+          <td>{{ data.value }}</td>
+          <td>
+            <a (click)="deleteItemQuestionsRelated(data.name)"> <span nz-icon nzType="delete"
+                nzTheme="outline"></span></a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <nz-form-item>
+    <nz-form-control [nzOffset]="8">
+      <button nz-button nzType="primary" [disabled]="!validateForm.valid">{{"general.guardar" | translate}}</button>
+      <button nz-button (click)="resetFormRelated()">{{"general.resetear" | translate}}</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

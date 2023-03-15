@@ -1,0 +1,64 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)"
+  style="width: 100% !important; max-width: 100% !important;">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>{{"general.codigo" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzValidatingTip]="'validaciones.validando' | translate" [nzErrorTip]="userErrorTpl">
+      <input nz-input formControlName="code" id="code" [placeholder]="'general.codigo' | translate" />
+      <ng-template #userErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.codigo_requerido" |
+          translate}}</ng-container>
+        <ng-container *ngIf="control.hasError('duplicated')">{{"validaciones.codigo_existente" |
+          translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>{{"general.nombre" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+      <textarea nz-input [placeholder]="'general.nombre'|translate" formControlName="name"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+      <ng-template #nameErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.nombre_requerido" |
+          translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>{{"general.componente" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="component_idErrorTpl">
+      <nz-select nzAllowClear formControlName="component_id" nzPlaceHolder="Escoger">
+        <nz-option *ngFor="let option of components" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
+      </nz-select>
+      <ng-template #component_idErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">{{"validaciones.tipo_requerido" | translate}}</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">{{"general.descripcion" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <textarea nz-input [placeholder]="'general.descripcion'|translate" formControlName="description"
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">{{"general.Preguntas" | translate}}</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <nz-select nzMode="tags" [nzPlaceHolder]="'general.Preguntas'|translate" formControlName="selectedQuestions">
+        <nz-option *ngFor="let option of questions" nzLabel="{{option.code}}-{{option.name}}" [nzValue]="option.id"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzOffset]="8">
+      <button nz-button nzType="primary" [disabled]="!validateForm.valid">{{"general.guardar" | translate}}</button>
+      <button nz-button (click)="resetForm($event)">{{"general.resetear" | translate}}</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>
